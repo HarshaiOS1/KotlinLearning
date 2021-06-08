@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentFirstBinding
+import java.io.IOException
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -27,6 +29,17 @@ class FirstFragment : Fragment() {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
+    }
+
+    fun getImageFromJsonFile(context: Context) {
+        val jsonString: String
+        try {
+            jsonString = context.assets.open("CountriesResponse.json").bufferedReader().use { it.readText() }
+            print(jsonString)
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
